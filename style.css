@@ -41,6 +41,11 @@ a {
   color: inherit;
 }
 
+section[id],
+header[id] {
+  scroll-margin-top: 5rem;
+}
+
 button,
 a {
   -webkit-tap-highlight-color: transparent;
@@ -49,6 +54,98 @@ a {
 :focus-visible {
   outline: 3px solid #e6a94f;
   outline-offset: 4px;
+}
+
+.site-nav {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-paper);
+}
+
+.nav-inner {
+  position: relative;
+  display: flex;
+  width: min(var(--content-width), calc(100% - 3rem));
+  min-height: 76px;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-inline: auto;
+}
+
+.nav-brand {
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.25rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-links a {
+  display: inline-block;
+  padding-block: 0.5rem;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.nav-links a:hover {
+  color: var(--color-accent);
+}
+
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.menu-toggle-icon {
+  display: grid;
+  gap: 5px;
+}
+
+.menu-toggle-icon span {
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-icon span:first-child {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-icon span:last-child {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .hero {
@@ -401,6 +498,46 @@ h1 span {
 @media (max-width: 760px) {
   :root {
     --space-6: 3.75rem;
+  }
+
+  .nav-inner {
+    width: min(var(--content-width), calc(100% - 2rem));
+    min-height: 68px;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: none;
+    align-items: stretch;
+    gap: 0.25rem;
+    padding: var(--space-2);
+    border: 1px solid var(--color-line);
+    border-top: 0;
+    border-radius: 0 0 8px 8px;
+    background: var(--color-surface);
+    box-shadow: 0 12px 24px rgba(23, 42, 58, 0.08);
+  }
+
+  .nav-links.is-open {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 0.65rem 0.75rem;
+    border-radius: 5px;
+  }
+
+  .nav-links a:hover {
+    background: var(--color-paper);
   }
 
   .hero {
